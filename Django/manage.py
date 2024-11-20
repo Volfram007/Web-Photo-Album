@@ -3,6 +3,10 @@
 import os
 import sys
 
+# Добавляем путь к проектам
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+sys.path.append(project_root)
+
 
 def main():
     """Run administrative tasks."""
