@@ -8,10 +8,8 @@
 - **Frontend**: HTML, CSS, JavaScript
 - **База данных**: SQLite
 
-<center>
-<img src="img_example/Screenshot_1.png" width='50%' height="auto" alt="Авторизация">
-<img src="img_example/Screenshot_2.png" width='50%' height="auto" alt="Главная">
-</center>
+<img style="margin-top: 10px;" src="img_example/Screenshot_1.png" width='50%' height="auto" alt="Авторизация">
+<img style="margin-top: 10px;" src="img_example/Screenshot_2.png" width='50%' height="auto" alt="Главная">
 
 # 🛠️ **Установка и настройка**
 1. **Установка**
