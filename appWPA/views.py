@@ -41,17 +41,14 @@ def index(request):
 
         # Словарь в список (дата, список фото)
         foto_list = list(photos_grouped_by_date.items())
-        print(list(foto_list))
         # Создание объекта пагинации
         paginator = Paginator(foto_list, limit_days)
-        print(list(paginator))
         # Получение номера страницы
         current_page_number = request.GET.get("page")
         current_page_photos = paginator.get_page(current_page_number)
         context["current_page_photos"] = current_page_photos
     else:
         context["AnonymousUser"] = AnonymousUser
-    print(context)
     return render(request, "index.html", context)
 
 
@@ -165,7 +162,9 @@ def upload_file(request):
             file_date = get_random_date()
             foto = ImageModel(user=request.user, image=uploaded_file, date=file_date)
             foto.save()
-    return redirect("index")
+
+    back_url = request.POST.get("back", "index")
+    return redirect(back_url)
 
 
 @login_required
@@ -189,5 +188,6 @@ def delete_image(request, image_id):
             os.remove(image_path)
         except Exception as e:
             print(f"Ошибка при удалении файла: {e}")
-    # Перенаправление пользователя на главную страницу после удаления изображения
-    return redirect("index")
+    # Перенаправление пользователя на предыдущую страницу
+    back_url = request.POST.get("back", "index")
+    return redirect(back_url)

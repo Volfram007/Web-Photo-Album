@@ -20,7 +20,7 @@ header {
     border-radius: 15px; /* Закругление углов */
 }
 
-.userFoto img {
+.userPhoto img {
     margin-top: 10px; /* Отступ с верху */
     max-width:200px; /* Размер изображения по ширине */
     max-height:200px; /* Размер изображения по высоте авто */

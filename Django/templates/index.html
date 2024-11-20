@@ -19,6 +19,7 @@
         <h2>Загрузите фотографию в коллекцию альбома</h2>
         <input type="file" class="tabLink" style="background-color: rgb(216 195 14); box-shadow: None;"
                accept="image/png, image/jpeg" name="uploaded_files" multiple required/>
+        <input type="hidden" name="back" value="{{ request.get_full_path }}">
         <button type="submit" class="tabLink" style="background-color: rgb(216 195 14); box-shadow: None;">
             Загрузить
         </button>
@@ -81,6 +82,7 @@
                     <!-- Удаление фото -->
                     <form action="{% url 'delete_image' photo.id %}" method="post">
                         {% csrf_token %}
+                        <input type="hidden" name="back" value="{{ request.get_full_path }}">
                         <button class=ButtonDelete type="submit">Удалить</button>
                     </form>
                 </div>
