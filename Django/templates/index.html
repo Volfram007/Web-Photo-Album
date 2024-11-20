@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css_style %}
+<link rel="stylesheet" href="{% static 'background.css' %}">
+<link rel="stylesheet" href="{% static 'button.css' %}">
+<link rel="stylesheet" href="{% static 'text.css' %}">
+{% endblock %}
+
+{% block tabMenu %}
+{% endblock %}
+
+
+{% block content %}
+<div style="text-align: center;">
+    {% if request.user.is_authenticated %}
+    <form id="uploadFile" method="POST" enctype="multipart/form-data" action="{% url 'upload_file' %}">
+        {% csrf_token %}
+        <h2>Загрузите фотографию в коллекцию альбома</h2>
+        <input type="file" class="tabLink" style="background-color: rgb(216 195 14); box-shadow: None;"
+               accept="image/png, image/jpeg" name="uploaded_files" multiple required/>
+        <button type="submit" class="tabLink" style="background-color: rgb(216 195 14); box-shadow: None;">
+            Загрузить
+        </button>
+    </form>
+    <form style="margin-top:15px;" method="GET" action="">
+        <label class="limit_days"> Показать дней на странице
+            <select name="limit_days" onchange="this.form.submit()">
+                <option value="1" {% if limit_days == 1 %}selected{% endif %}>1 днь</option>
+                <option value="3" {% if limit_days == 3 %}selected{% endif %}>3 дня</option>
+                <option value="5" {% if limit_days == 5 %}selected{% endif %}>5 дней</option>
+            </select>
+        </label>
+    </form>
+
+    <!-- Пагинация -->
+    <div class="pagination">
+        <div class="pagesLeft">
+            {% if current_page_photos.has_previous %}
+            <a style="color: #ec531e; text-decoration: none;" href="?page=1&limit_days={{ limit_days }}">[Первая] </a>
+            <a style="color: #ec531e; text-decoration: none; font-size: 22px;"
+               href="?page={{ current_page_photos.previous_page_number }}&limit_days={{ limit_days }}">Предыдущая</a>
+            {% endif %}
+        </div>
+
+        <div class="pagesCenter">
+            <span class="current" style="color: #6cb777;">Страница {{ current_page_photos.number }} из {{ current_page_photos.paginator.num_pages }}</span>
+        </div>
+
+        <div class="pagesRight">
+            {% if current_page_photos.has_next %}
+            <a style="color: #ec531e; text-decoration: none; font-size: 22px;"
+               href="?page={{ current_page_photos.next_page_number }}&limit_days={{ limit_days }}">Следующая</a>
+            <a style="color: #ec531e; text-decoration: none;" href="?page={{ current_page_photos.paginator.num_pages }}&limit_days={{ limit_days }}">
+                [Последняя]</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Фото лист -->
+    <div class="photoContainer">
+        {% for date, photos in current_page_photos %}
+        <div style="box-shadow: inset 0 0 30px rgba(237,83,30,0.3); border-radius: 22px;">
+            <h2>{{ date }}</h2>
+            <div class="datePhotos">
+                <!-- Цикл по фотографиям -->
+                {% for photo in photos %}
+                <!-- Если индекс фотографии кратен 6, закрываем предыдущий блок и открываем новый -->
+                {% if forloop.counter0|divisibleby:6 %}
+            </div>
+            <div class="datePhotos">
+                {% endif %}
+                <!-- Вывод фотографий -->
+                <div class="userPhoto" style="display: inline-block; margin: 5px;">
+                    <a href="{{ photo.image.url }}">
+                        <img src="{{ photo.image.url }}"
+                             onerror="this.src='https://otvet.imgsmail.ru/download/8827816_18d2440457725e7740e47c172c0a6de8.jpg'"
+                             alt="Фото">
+                    </a>
+
+                    <!-- Удаление фото -->
+                    <form action="{% url 'delete_image' photo.id %}" method="post">
+                        {% csrf_token %}
+                        <button class=ButtonDelete type="submit">Удалить</button>
+                    </form>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        {% empty %}
+        <div>
+            <div class="photoNotFound">
+                <img src="https://rdstroy.ru/upload/images/335515/big/photo2.jpg"
+                     alt="Фото не найдено">
+            </div>
+            <h2>Нет загруженных фотографий</h2>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Пагинация -->
+    <div class="pagination">
+        <div class="pagesLeft">
+            {% if current_page_photos.has_previous %}
+            <a style="color: #ec531e; text-decoration: none;" href="?page=1&limit_days={{ limit_days }}">[Первая] </a>
+            <a style="color: #ec531e; text-decoration: none; font-size: 22px;"
+               href="?page={{ current_page_photos.previous_page_number }}&limit_days={{ limit_days }}">Предыдущая</a>
+            {% endif %}
+        </div>
+
+        <div class="pagesCenter">
+            <span class="current" style="color: #6cb777;">Страница {{ current_page_photos.number }} из {{ current_page_photos.paginator.num_pages }}</span>
+        </div>
+
+        <div class="pagesRight">
+            {% if current_page_photos.has_next %}
+            <a style="color: #ec531e; text-decoration: none; font-size: 22px;"
+               href="?page={{ current_page_photos.next_page_number }}&limit_days={{ limit_days }}">Следующая</a>
+            <a style="color: #ec531e; text-decoration: none;" href="?page={{ current_page_photos.paginator.num_pages }}&limit_days={{ limit_days }}">
+                [Последняя]</a>
+            {% endif %}
+        </div>
+    </div>
+
+    {% else %}
+    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+        <h1 class="shadow-Anonymous">{{ AnonymousUser }}</h1>
+        <div class="button-container">
+            <div class="cButton" style="width: 100px;" onclick="window.location.href='/'">Вход</div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
