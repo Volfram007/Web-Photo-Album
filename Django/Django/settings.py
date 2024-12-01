@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "appWPA",  # Приложение "Фотоальбом"
+    "sass_processor",  # Подключение препроцессора SCSS
 ]
 
 MIDDLEWARE = [
@@ -117,10 +118,27 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
+STATIC_ROOT = BASE_DIR / "static/css"
 STATIC_URL = "static/"
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
+
+# Путь для обработки SCSS файлов
+SASS_PROCESSOR_ROOT = BASE_DIR / "static/scss"
+
+# Подключение обработчика SCSS
+STATICFILES_FINDERS = [
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+    "sass_processor.finders.CssFinder",  # Позволяет находить SCSS-файлы
+]
+# COMPRESS_ENABLED = True
+
+# COMPRESS_CSS_FILTERS = [
+#     "compressor.filters.css_default.CssAbsoluteFilter",
+#     "compressor.filters.cssmin.CSSCompressorFilter",
+# ]
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
