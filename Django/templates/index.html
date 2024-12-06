@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load sass_tags %}
 
 {% block css_style %}
-<link rel="stylesheet" href="{% static 'background.css' %}">
-<link rel="stylesheet" href="{% static 'button.css' %}">
-<link rel="stylesheet" href="{% static 'text.css' %}">
+<link rel="stylesheet" href="{% static 'css/background.css' %}">
+<link rel="stylesheet" href="{% static 'css/button.css' %}">
+<link rel="stylesheet" href="{% static 'css/text.css' %}">
 {% endblock %}
 
 {% block tabMenu %}
@@ -12,7 +13,7 @@
 
 
 {% block content %}
-<div style="text-align: center;">
+<div class="CenterPanel" style="z-index: 4;">
     {% if request.user.is_authenticated %}
     <form id="uploadFile" method="POST" enctype="multipart/form-data" action="{% url 'upload_file' %}">
         {% csrf_token %}
@@ -52,16 +53,18 @@
             {% if current_page_photos.has_next %}
             <a style="color: #ec531e; text-decoration: none; font-size: 22px;"
                href="?page={{ current_page_photos.next_page_number }}&limit_days={{ limit_days }}">Следующая</a>
-            <a style="color: #ec531e; text-decoration: none;" href="?page={{ current_page_photos.paginator.num_pages }}&limit_days={{ limit_days }}">
+            <a style="color: #ec531e; text-decoration: none;"
+               href="?page={{ current_page_photos.paginator.num_pages }}&limit_days={{ limit_days }}">
                 [Последняя]</a>
             {% endif %}
         </div>
     </div>
 
     <!-- Фото лист -->
-    <div class="photoContainer">
+    <div class="photoContainer" style="z-index: 4;">
         {% for date, photos in current_page_photos %}
-        <div style="box-shadow: inset 0 0 30px rgba(237,83,30,0.3); border-radius: 22px;">
+        <div class="photoContainer"
+             style="box-shadow: inset 0 0 30px rgba(8, 7, 16, 0.6);  border-radius: 22px; backdrop-filter: blur(5px); z-index: 4;">
             <h2>{{ date }}</h2>
             <div class="datePhotos">
                 <!-- Цикл по фотографиям -->
@@ -119,7 +122,8 @@
             {% if current_page_photos.has_next %}
             <a style="color: #ec531e; text-decoration: none; font-size: 22px;"
                href="?page={{ current_page_photos.next_page_number }}&limit_days={{ limit_days }}">Следующая</a>
-            <a style="color: #ec531e; text-decoration: none;" href="?page={{ current_page_photos.paginator.num_pages }}&limit_days={{ limit_days }}">
+            <a style="color: #ec531e; text-decoration: none;"
+               href="?page={{ current_page_photos.paginator.num_pages }}&limit_days={{ limit_days }}">
                 [Последняя]</a>
             {% endif %}
         </div>
@@ -135,3 +139,5 @@
     {% endif %}
 </div>
 {% endblock %}
+
+

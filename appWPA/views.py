@@ -1,7 +1,6 @@
 import os
 from pathlib import Path
 
-from black.trans import defaultdict
 from django.core.paginator import Paginator
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
@@ -74,8 +73,8 @@ def authorization(request):
     # Проверка на авторизацию
     if request.user.is_authenticated:
         # Переход на домашнюю страницу
-        #  context["message"] = "Вы уже авторизированны!"
-        return redirect("index")
+        context["message"] = "Вы уже авторизированны!"
+        # return redirect("index")
 
     if request.method == "POST":
         # Получение типа активной формы (вход или регистрация)
@@ -102,7 +101,7 @@ def authorization(request):
             # Получаем подтверждение пароля
             password2 = request.POST.get("password2")
             # Импорт библиотеки для дополнительных проверок
-            import re
+            # import re
 
             # Проверка на заполнение всех полей
             if not (username or password1 or password2):
@@ -117,7 +116,7 @@ def authorization(request):
             elif len(password1 or password2) <= Min_Password_Length:
                 context["error"] = Error_Password_Length
             else:
-                # Создание нового пользователя с хешированным паролем
+                # Создание нового пользователя с хэшированным паролем
                 user = User(username=username, password=make_password(password1))
                 user.save()
                 # Автоматический вход
@@ -174,7 +173,7 @@ def delete_image(request, image_id):
 
     Параметры:
     request (HttpRequest): HTTP-запрос от пользователя.
-    image_id (int): Идентификатор изображения, которое нужно удалить.
+    Image_id (int): Идентификатор изображения, которое нужно удалить.
     """
     # Если объект не найден, возвращается ошибка 404.
     image = get_object_or_404(ImageModel, id=image_id, user=request.user)
