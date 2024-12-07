@@ -11,8 +11,8 @@
 - **База данных**: SQLite
 
 
-<img style="margin-top: 10px;" src="img_example/Screenshot_1.png" width='50%' height="auto" alt="Авторизация">
+<img style="margin-top: 10px;" src="img_example/Screenshot_1.png" width='350px' alt="Авторизация">
 
-<img style="margin-top: 10px;" src="img_example/Screenshot_2.png" width='50%' height="auto" alt="Главная">
+<img style="margin-top: 10px;" src="img_example/Screenshot_2.png" width='350px' alt="Главная">
 
 # <a href="Init.md">🛠️ **Установка и настройка**</a>

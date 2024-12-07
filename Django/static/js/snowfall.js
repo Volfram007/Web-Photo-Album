@@ -145,7 +145,7 @@
         if (!spawnAboveScreen) {
             opacity = Math.random() * 0.3 + 0.4; // Прозрачность меньше (до 0.7)
         }
-        
+
         return {
             x: Math.random() * width,                  // Позиция по X
             y: spawnAboveScreen ? -Math.random() * height : Math.random() * height, // Появление выше экрана
@@ -163,9 +163,6 @@
         // Очищаем canvas
         backCtx.clearRect(0, 0, width, height);
         frontCtx.clearRect(0, 0, width, height);
-
-        // Рисуем накопленные снежинки на элементах
-        // drawAccumulatedSnow(); // Если нужно рисовать накопленные снежинки, раскомментируйте эту строку
 
         for (var i = 0; i < snowflakes.length; i++) {
             var flake = snowflakes[i];
@@ -222,12 +219,8 @@
                 }
 
                 if (flake.y - flake.radius > height) {
-//                    flake.stopped = true;
-                    // Если снежинка вышла за нижнюю границу экрана, перезапускаем ее из-за верхней границы
-//                    if (fallingCount > snowflakeCount){
-                        snowflakes[i] = createSnowflake(true); // Создаем новую снежинку выше экрана
-                        continue;
-//                    }
+                    snowflakes[i] = createSnowflake(true); // Создаем новую снежинку выше экрана
+                    continue;
                 }
             }
 
@@ -244,12 +237,12 @@
             }
 
             // Изменяем цвет снежинки, если она может прилипнуть (для отладки)
-//            var color;
-//            if (!flake.front && flake.opacity >= snowSticky - 0.1) {
-//                color = 'rgba(255, 0, 0,' + flake.opacity + ')'; // Красный цвет для снежинок, которые могут прилипнуть
-//            } else {
-//                color = 'rgba(255, 255, 255,' + flake.opacity + ')'; // Белый цвет для остальных
-//            }
+            //            var color;
+            //            if (!flake.front && flake.opacity >= snowSticky - 0.1) {
+            //                color = 'rgba(255, 0, 0,' + flake.opacity + ')'; // Красный цвет для снежинок, которые могут прилипнуть
+            //            } else {
+            //                color = 'rgba(255, 255, 255,' + flake.opacity + ')'; // Белый цвет для остальных
+            //            }
             color = 'rgba(255, 255, 255,' + flake.opacity + ')'; // Белый цвет для остальных
 
             ctx.fillStyle = color;
@@ -257,7 +250,7 @@
         }
 
         // Обновляем счетчики снежинок
-        updateCounters();
+        //        updateCounters();
 
         requestAnimationFrame(update);
     }

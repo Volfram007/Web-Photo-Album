@@ -6,6 +6,8 @@
 <link rel="stylesheet" href="{% static 'css/background.css' %}">
 <link rel="stylesheet" href="{% static 'css/button.css' %}">
 <link rel="stylesheet" href="{% static 'css/text.css' %}">
+
+<link rel="stylesheet" href="{% static 'css/TimeDate.css' %}">
 {% endblock %}
 
 {% block tabMenu %}
@@ -28,7 +30,7 @@
     <form style="margin-top:15px;" method="GET" action="">
         <label class="limit_days"> Показать дней на странице
             <select name="limit_days" onchange="this.form.submit()">
-                <option value="1" {% if limit_days == 1 %}selected{% endif %}>1 днь</option>
+                <option value="2" {% if limit_days == 2 %}selected{% endif %}>2 днь</option>
                 <option value="3" {% if limit_days == 3 %}selected{% endif %}>3 дня</option>
                 <option value="5" {% if limit_days == 5 %}selected{% endif %}>5 дней</option>
             </select>
@@ -138,6 +140,31 @@
     </div>
     {% endif %}
 </div>
+
+<div class="RightPanel">
+    <div id="TimeDate-container"></div>
+</div>
+
 {% endblock %}
 
+{% block javascript %}
+<script src="{% static 'js/TimeDate.js' %}"></script>
+
+<script>
+    $(document).ready(function(){
+        $('#TimeDate-container').TimeDate_container({});
+    });
+
+    window.addEventListener('scroll', function() {
+        var rightPanel = document.querySelector('.RightPanel');
+        var scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+        var rightPanelTop = rightPanel.offsetTop;
+
+        if (scrollPosition >= rightPanelTop) {
+            rightPanel.style.position = 'sticky';
+            rightPanel.style.top = '0';
+        }
+    });
+</script>
+{% endblock %}
 

@@ -4,13 +4,13 @@
   * Кнопка создания проекта "from Version Control"
     * Вкладка Repository URL > URL > `https://github.com/***.git`
   * ИЛИ через терминал:
-    * `git clone https://github.com/Volfram007/Web-Photo-Album`
+    * `git clone https://github.com/Volfram007/Web-Photo-Album.git`
   * Создание папки виртуального окружения
     * `python -m venv venv`
       `
   * Активация папки:
       ```bash 
-      venv\Scripts\activate
+      .\venv\Scripts\activate
       ```
 * Настраиваем *interpreter*
 

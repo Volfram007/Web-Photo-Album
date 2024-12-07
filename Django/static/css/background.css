@@ -6,6 +6,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center; /* Выравнивание по вертикали */
+    height: 50px;
 }
 
 .tab-headerLeft,
@@ -14,34 +15,31 @@ header {
 }
 
 .photoNotFound img {
-    margin-top: 10px; /* Отступ с верху */
-    max-width:300px; /* Размер изображения по ширине */
-    height:auto; /* Размер изображения по высоте авто */
     border-radius: 15px; /* Закругление углов */
+    height: auto; /* Размер изображения по высоте авто */
+    margin-top: 10px; /* Отступ с верху */
+    max-width: 300px; /* Размер изображения по ширине */
 }
 
+
 .userPhoto img {
-    margin-top: 10px; /* Отступ с верху */
-    max-width:200px; /* Размер изображения по ширине */
-    max-height:200px; /* Размер изображения по высоте авто */
     border-radius: 15px; /* Закругление углов */
-    width: auto; /* Автоматическая ширина для сохранения пропорций */
-    height: auto; /* Автоматическая высота для сохранения пропорций */
     box-shadow: 0 0 25px rgba(0, 0, 0, 1); /* Внешнее свечение */
+    height: auto; /* Автоматическая высота для сохранения пропорций */
+    margin-top: 10px; /* Отступ с верху */
+    max-height: 200px; /* Размер изображения по высоте авто */
+    max-width: 200px; /* Размер изображения по ширине */
+    width: auto; /* Автоматическая ширина для сохранения пропорций */
 }
 
 .pagination {
-/* Выравнивания и распределения элементов внутри блока */
-    display: flex;
-    /* Равномерно по всей ширине контейнера */
-    justify-content: space-between;
-    /* Выравниваем элементы по центру по вертикали */
-    align-items: center;
-    /* Добавляем отступ сверху */
-    margin-top: 20px;
-    /* text-align: center;*/
+    align-items: center; /* Выравниваем элементы по центру по вертикали */
+    display: flex; /* Выравнивания и распределения элементов внутри блока */
+    justify-content: space-between; /* Равномерно по всей ширине контейнера */
+    margin-top: 20px; /* Добавляем отступ сверху */
     width: 100%;
 }
+
 
 
 .pagesLeft {
@@ -83,10 +81,22 @@ header {
 }
 
 .RightPanel {
-    margin-left: 10px;
-    width: 300px; /* Фиксированная ширина */
-    box-shadow: inset 0 0 30px rgba(8, 7, 16, 0.6);  /* Тень */
-    border-radius: 22px; /* Скругленные углы */
+    align-items: center;
     backdrop-filter: blur(5px); /* Размытие фона */
+    border-radius: 22px; /* Скругленные углы */
+    box-shadow: inset 0 0 30px rgba(8, 7, 16, 0.6); /* Тень */
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 66px);
+    margin-left: 10px;
+    min-height: 390px;
+    width: 300px; /* Фиксированная ширина */
     z-index: 4; /* Уровень слоя */
+    marginTop: '0';
+}
+
+#TimeDate-container {
+    position: absolute; /* Устанавливаем абсолютное позиционирование */
+    margin-bottom:10px;
+    bottom: 0; /* Размещаем в самом низу */
 }
